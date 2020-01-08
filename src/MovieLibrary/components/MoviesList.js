@@ -1,9 +1,11 @@
-import React, { Component, PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import TMDBImage from './TMDBImage'
-import './MoviesList.css'
+import MovieDetailsModal from './MovieDetailsModal';
+import TMDBImage from './TMDBImage';
+import './MoviesList.css';
+
 
 export default class MoviesList extends PureComponent {
 
@@ -15,9 +17,11 @@ export default class MoviesList extends PureComponent {
     selectedMovie: null
   }
 
-  handleSelectMovie = item => this.setState({selectedMovie: item})
+  handleSelectMovie = item => this.setState({selectedMovie: item});
 
-  handleSortingChange = sortingType => console.log(sortingType)
+  handleSortingChange = sortingType => console.log(sortingType);
+
+  handleDetailsClose = () => this.setState({ selectedMovie: null });
 
   render() {
 
@@ -26,37 +30,31 @@ export default class MoviesList extends PureComponent {
 
     return (
       <div className="movies-list">
-        <div className="items">
-          <div>
-            <span>Sort by:</span>
-            <SortingOptions onChange={this.handleSortingChange}/>
-          </div>
+        <div className="movies-list__sorting">
+          <span>Sort by: </span>
+          <SortingOptions onChange={this.handleSortingChange}/>
+        </div>
+
+        <div className="movies-list__items">
           {
             movies.map(movie =>
               <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={this.handleSelectMovie}/>
             )
           }
         </div>
+
         {
           selectedMovie && (
-            <ExpandedMovieItem movie={selectedMovie} />
+            <MovieDetailsModal
+              movie={selectedMovie}
+              onClose={ this.handleDetailsClose }
+            />
           )
         }
       </div>
     )
   }
 }
-
-const ExpandedMovieItem = ({movie: {title, original_title, poster_path, overview, vote_average, vote_count}}) => (
-  <div className="expanded-movie-item">
-    <TMDBImage src={poster_path} className="poster" />
-    <div className="description">
-      <h2>{title}({original_title})</h2>
-      <div><h4>Rank(votes count)</h4>: <span>{vote_average}({vote_count})</span></div>
-      <span>{overview}</span>
-    </div>
-  </div>
-)
 
 class MovieListItem extends Component {
 
@@ -66,9 +64,20 @@ class MovieListItem extends Component {
   }
 
   render() {
-    const {movie: {title, vote_average}, isSelected} = this.props
+    const {movie: {title, vote_average, poster_path}, isSelected} = this.props
     return (
-      <div className={classNames('movie-list-item', {'selected': isSelected})} onClick={this.handleClick}>{title}({vote_average})</div>
+      <div className={classNames('movie-list-item-wrapper', {'selected': isSelected})}  onClick={this.handleClick}>
+        <div className="movie-list-item">
+          <TMDBImage src={poster_path} alt={title} className="movie-list-item__image"/>
+
+          <div className="movie-list-item__description">
+            <h3 class="movie-list-item__title">
+              {title}
+              <span className="movie-list-item__vote">{vote_average}</span>
+            </h3>
+          </div>
+        </div>
+      </div>
     )
   }
 }
@@ -98,4 +107,3 @@ class SortingOptions extends Component {
     )
   }
 }
-
