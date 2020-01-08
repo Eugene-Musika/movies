@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import MovieDetailsModal from './MovieDetailsModal';
 import TMDBImage from './TMDBImage';
 import './MoviesList.css';
+import sortMovies from '../utils/sortMovies';
 
 
 export default class MoviesList extends PureComponent {
@@ -14,19 +15,22 @@ export default class MoviesList extends PureComponent {
   }
 
   state = {
-    selectedMovie: null
+    selectedMovie: null,
+    sortingOrder: '',
   }
 
   handleSelectMovie = item => this.setState({selectedMovie: item});
 
-  handleSortingChange = sortingType => console.log(sortingType);
+  handleSortingChange = sortingOrder => this.setState({sortingOrder});
 
   handleDetailsClose = () => this.setState({ selectedMovie: null });
 
+
   render() {
 
-    const {movies} = this.props
-    const {selectedMovie} = this.state
+    const {movies} = this.props;
+    const {selectedMovie, sortingOrder} = this.state;
+    console.log(sortMovies(movies, sortingOrder));
 
     return (
       <div className="movies-list">
@@ -37,8 +41,8 @@ export default class MoviesList extends PureComponent {
 
         <div className="movies-list__items">
           {
-            movies.map(movie =>
-              <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={this.handleSelectMovie}/>
+            sortMovies(movies, sortingOrder).map(movie =>
+              <MovieListItem key={movie.id} movie={movie} onSelect={this.handleSelectMovie}/>
             )
           }
         </div>
@@ -64,14 +68,14 @@ class MovieListItem extends Component {
   }
 
   render() {
-    const {movie: {title, vote_average, poster_path}, isSelected} = this.props
+    const {movie: {title, vote_average, poster_path}} = this.props
     return (
-      <div className={classNames('movie-list-item-wrapper', {'selected': isSelected})}  onClick={this.handleClick}>
+      <div className={classNames('movie-list-item-wrapper')}  onClick={this.handleClick}>
         <div className="movie-list-item">
           <TMDBImage src={poster_path} alt={title} className="movie-list-item__image"/>
 
           <div className="movie-list-item__description">
-            <h3 class="movie-list-item__title">
+            <h3 className="movie-list-item__title">
               {title}
               <span className="movie-list-item__vote">{vote_average}</span>
             </h3>

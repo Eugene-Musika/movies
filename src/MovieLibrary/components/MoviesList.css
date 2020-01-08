@@ -65,7 +65,3 @@
   font-weight: 700;
   margin-left: 5px;
 }
-
-.movie-list-item.selected {
-  text-decoration: underline;
-}
