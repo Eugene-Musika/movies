@@ -6,9 +6,9 @@
 	box-sizing: border-box;
 	width: 100%;
 	padding-right: 40px;
-	background-color: #222;
-	color: white;
 	transition: left 0.3s ease-in;
+	color: white;
+	background-color: #222;
 }
 
 .movie-details-modal:not(.is-active) {
@@ -30,12 +30,12 @@
 	right: 0;
 	width: 30px;
 	height: 30px;
-	transform: rotate(45deg);
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
-	background-color: transparent;
+	transform: rotate(45deg);
 	border: 0;
 	outline: 0;
+	background-color: transparent;
 }
 
 .movie-details-modal__close:hover {
@@ -44,9 +44,9 @@
 
 .movie-details-modal__close::before,
 .movie-details-modal__close::after {
-	content: "";
-	display: block;
 	position: absolute;
+	display: block;
+	content: "";
 	background-color: gray;
 }
 
@@ -54,26 +54,26 @@
 	top: 0;
 	bottom: 0;
 	left: 50%;
-	transform: translateX(-50%);
 	width: 2px;
+	transform: translateX(-50%);
 }
 
 .movie-details-modal__close::after {
 	top: 50%;
 	right: 0;
 	left: 0;
-	transform: translateY(-50%);
 	height: 2px;
+	transform: translateY(-50%);
 }
 
 .movie-details {
-  display: flex;
+	display: flex;
 	flex-direction: row;
 	height: 100%;
 }
 
 .movie-details__vote {
-  display: inline;
+	display: inline;
 }
 
 .movie-details__poster {
@@ -83,11 +83,11 @@
 }
 
 .movie-details__description {
-  display: flex;
+	display: flex;
 	flex-direction: column;
 	padding: 0 10px;
 }
 
 .movie-details__overview {
-  margin-top: 10px;
+	margin-top: 10px;
 }

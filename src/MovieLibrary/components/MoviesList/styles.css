@@ -1,0 +1,14 @@
+.movies-list {
+	text-align: left;
+	color: white;
+	background-color: #222;
+}
+
+.movies-list__sorting {
+	padding: 5px;
+}
+
+.movies-list__items {
+	display: flex;
+	flex-flow: row wrap;
+}

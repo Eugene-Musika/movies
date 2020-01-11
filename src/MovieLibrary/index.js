@@ -1,5 +1,6 @@
-import reducer from './store/reducer'
-import MovieLibrary from './components/MovieLibrary'
+import MovieLibrary from './components/MovieLibrary';
+import reducer from './store/reducer';
 
-export {reducer}
-export default MovieLibrary
+
+export { reducer };
+export default MovieLibrary;
